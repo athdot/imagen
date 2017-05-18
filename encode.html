@@ -1,9 +1,12 @@
 <body>
-<input type="text" id="bas" value="Insert Base64 here"></input><br><button onclick="sendUrl()">Done</button>
-<input type="text" id="mime"  style="display:none;"></input>
+<input type="text" id="bas" value="Insert Base64 here"><button onclick="sendUrl()">Done</button>
+<input type="text" id="mime"  style="display:none;">
 <img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" id="ima" style="display:none;" />
-<button onclick="toAthrgba()">To AthRGBA</button><br><button id="create">Create file</button> <a download="info.cim" id="downloadlink" style="display: none"></a><br>
+<br><input type="text" id="filenam" value="Test"><button onclick="nameChange()">Change Filename</button><br><button onclick="toAthrgba()">To AthRGBA</button><button id="create">Create file</button> <a download="info.cim" id="downloadlink" style="display: none"></a><br>
 <script>
+function nameChange(){
+document.getElementById('downloadlink').download = document.getElementById('filenam').value + '.cim'
+}
 function sendUrl(){
 document.getElementById('ima').src = document.getElementById('bas').value;
 var element = document.getElementById("gut");
@@ -56,22 +59,16 @@ document.getElementById('mime').value = string;
 var textFile = null,
   makeTextFile = function (text) {
     var data = new Blob([text], {type: 'text/plain'});
-
     // If we are replacing a previously generated file we need to
     // manually revoke the object URL to avoid memory leaks.
     if (textFile !== null) {
       window.URL.revokeObjectURL(textFile);
     }
-
     textFile = window.URL.createObjectURL(data);
-
     return textFile;
   };
-
-
   var create = document.getElementById('create'),
     textbox = document.getElementById('textbox');
-
   create.addEventListener('click', function () {
     var link = document.getElementById('downloadlink');
     link.href = makeTextFile((document.getElementById('mime').value));
