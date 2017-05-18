@@ -1,0 +1,56 @@
+<body>
+<input type="text" id="bas" value="Insert Base64 here"></input><br><button onclick="sendUrl()">Done</button>
+<img src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7" id="ima" style="display:none;" />
+<button onclick="toAthrgba()">To AthRGBA</button><br>
+<script>
+function sendUrl(){
+document.getElementById('ima').src = document.getElementById('bas').value;
+var element = document.getElementById("gut");
+element.outerHTML = "";
+delete element;
+var canva = document.createElement('canvas');
+canva.style = "border:1px solid;"
+canva.width = document.getElementById('ima').width;
+canva.height = document.getElementById('ima').height;
+canva.id = "gut"
+document.body.appendChild(canva);
+var ctx = canva.getContext('2d');
+var img = document.getElementById('ima');
+ctx.drawImage(img,0,0);
+}
+var canva = document.createElement('canvas');
+canva.style = "border:1px solid;"
+canva.width = document.getElementById('ima').width;
+canva.height = document.getElementById('ima').height;
+canva.id = "gut"
+document.body.appendChild(canva);
+var ctx = canva.getContext('2d');
+var img = document.getElementById('ima');
+ctx.drawImage(img,0,0);
+function toAthrgba(){
+var canvas = document.getElementById('gut');
+var context = canvas.getContext("2d");
+var width = canvas.width;
+var height = canvas.height;
+var string = "["+width + "],[" + height+"]";
+var totalpixelcount = width*height
+var runthroughs = 0;
+var y=0;
+var x=0;
+while(runthroughs<totalpixelcount){
+        data = context.getImageData( x, y, 1, 1).data;
+        var data = data.toString();
+var string = string + ",["+data+"]"
+var runthroughs=runthroughs+1;
+var x=x+1;
+if(x>width){
+var x=0;
+var y=y+1;
+}
+}
+var string=string+";"
+console.log(string);
+alert('See debug log for encryption');
+}
+</script>
+</body>
